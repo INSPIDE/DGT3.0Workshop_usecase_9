@@ -1,0 +1,80 @@
+asyncapi: "2.0.0"
+info:
+  title: bsalidaasync
+  version: 1.0.0
+  description: This service is in charge of publish dynamic crane informacion
+  contact: 
+    name: API Support
+    email: jgcasta@inspide.com
+  license:
+    name: Copyright 2021 DGT
+
+servers:
+  preproduction:
+    url: bsalidaasync-pre.cmobility.com
+    description: Preproduction server
+    protocol: secure-mqtt
+    protocolVersion: 3.1.1
+
+channels:
+  out/crane/1.0:
+    description: Real time dynamic crane information
+    publish:
+      message:
+        $ref: '#/components/messages/crane'
+components:
+  messages:
+    crane:
+      externalDocs: 
+        description: Table descriptions
+        url: https://ddd.com    
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+            description: Event Unique ID
+          ts:
+            type: string
+            format: date-time
+            description: UTC timestamp
+            example: 2021-04-12T23:20:50.52Z        
+          lon:
+            type: number
+            format: double
+            description: WGS84 longitude
+            example: -3.45362
+          id_prov:
+            ype: number
+            format: int32
+            description: Province unique ID
+            example: 28
+          road:
+            type: string
+            description: Label road in GIS 
+            example: "N-340"
+          pk:
+            type: number
+            format: double
+            description: Kilometer point
+            example: 251.200    
+          direction:
+            ype: number
+            format: int32
+            description: Direction on the road (1 - ascendent, 2 - descendent)
+            example: 1                
+          lat:
+            type: number
+            format: double
+            description: WGS84 latitude
+            example: 40.45362  
+          event_type:
+            type: integer
+            format: int32
+            description: Event type from event_type table
+            example: 1
+          speed:
+            type: number
+            format: souble
+            description: Speed in km/h
+            example: 25.3  
